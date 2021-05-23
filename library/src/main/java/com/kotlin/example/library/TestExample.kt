@@ -1,6 +1,6 @@
 @file:Suppress("PrivatePropertyName")
 
-package com.kotlin.example
+package com.kotlin.example.library
 
 /**
  * 测试例子
