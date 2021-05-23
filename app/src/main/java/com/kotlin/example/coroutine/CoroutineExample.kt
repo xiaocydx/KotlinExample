@@ -2,7 +2,7 @@
 
 package com.kotlin.example.coroutine
 
-import com.kotlin.example.TestExample
+import com.kotlin.example.library.TestExample
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
