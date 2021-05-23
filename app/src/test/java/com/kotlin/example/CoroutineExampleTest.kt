@@ -15,7 +15,7 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * 协程例子的单元测试
+ * 协程单元测试
  *
  * @author xcc
  * @date 2021/5/15

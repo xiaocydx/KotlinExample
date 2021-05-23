@@ -11,7 +11,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * 协程例子的单元测试
+ * 协程单元测试
  *
  * **注意**：与[CoroutineExampleTest]的区别在于，
  * 该单元测试跑的是Android环境，因此主线程调度器是Android的主线程。
