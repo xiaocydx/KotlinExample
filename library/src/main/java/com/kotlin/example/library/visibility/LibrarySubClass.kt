@@ -6,7 +6,7 @@ package com.kotlin.example.library.visibility
  */
 class LibrarySubClass : LibrarySuperClass() {
 
-    override fun run() {
+    fun run() {
         inlineProtectedFunction()
     }
 }

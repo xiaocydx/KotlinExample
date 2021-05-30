@@ -24,7 +24,7 @@ class CoroutineExampleAndroidTest {
 
     @Test
     fun safeContinuationExample() = runBlocking {
-        SafeContinuationExample().runAwait()
+        SafeContinuationExample().run()
     }
 
     @After

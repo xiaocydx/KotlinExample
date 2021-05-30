@@ -30,7 +30,7 @@ class CoroutineExampleTest {
 
     @Test
     fun safeContinuationExample() = runBlocking {
-        SafeContinuationExample().runAwait()
+        SafeContinuationExample().run()
     }
 
     @After

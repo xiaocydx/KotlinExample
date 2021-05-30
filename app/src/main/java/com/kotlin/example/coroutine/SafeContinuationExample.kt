@@ -16,7 +16,7 @@ import kotlin.coroutines.suspendCoroutine
  */
 class SafeContinuationExample : CoroutineExample() {
 
-    override suspend fun runAwait() {
+    override suspend fun run() {
         coroutineScope.launch {
             val user = getUserSuspend()
             // val user = getUserSuspendImmediately()

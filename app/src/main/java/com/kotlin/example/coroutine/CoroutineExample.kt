@@ -1,8 +1,7 @@
-@file:Suppress("ControlFlowWithEmptyBody")
+@file:Suppress("ControlFlowWithEmptyBody", "PrivatePropertyName")
 
 package com.kotlin.example.coroutine
 
-import com.kotlin.example.library.TestExample
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -13,14 +12,15 @@ import kotlinx.coroutines.SupervisorJob
  * @author xcc
  * @date 2021/5/15
  */
-abstract class CoroutineExample : TestExample() {
+abstract class CoroutineExample {
+    private val TAG = this::class.java.simpleName
+
+    abstract suspend fun run()
 
     protected val coroutineScope: CoroutineScope =
             CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    @Deprecated("runAwait代替")
-    final override fun run() {
+    protected fun log(msg: Any?) {
+        println("$TAG：$msg")
     }
-
-    abstract suspend fun runAwait()
 }

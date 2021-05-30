@@ -1,15 +1,13 @@
 package com.kotlin.example.base.visibility
 
-import com.kotlin.example.library.TestExample
-
 /**
  * @author xcc
  * @date 2021/5/23
  */
-abstract class AppSuperClass : TestExample() {
+abstract class AppSuperClass {
 
     protected fun protectedFunction() {
-        log("call protectedFunction")
+        println("AppSuperClass protectedFunction")
     }
 
     protected inline fun inlineProtectedFunction() {
