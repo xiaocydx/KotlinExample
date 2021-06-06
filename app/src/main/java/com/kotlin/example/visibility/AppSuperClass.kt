@@ -1,4 +1,4 @@
-package com.kotlin.example.base.visibility
+package com.kotlin.example.visibility
 
 /**
  * @author xcc

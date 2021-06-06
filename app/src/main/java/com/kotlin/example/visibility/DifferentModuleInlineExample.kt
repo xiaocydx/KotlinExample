@@ -1,4 +1,4 @@
-package com.kotlin.example.base.visibility
+package com.kotlin.example.visibility
 
 import com.kotlin.example.library.visibility.LibrarySuperClass
 
@@ -8,13 +8,13 @@ import com.kotlin.example.library.visibility.LibrarySuperClass
  * @author xcc
  * @date 2021/5/23
  */
-fun main() {
-    AppSubClass().run()
-}
-
 class AppSubClass : LibrarySuperClass() {
 
     fun run() {
         inlineProtectedFunction()
     }
+}
+
+fun main() {
+    AppSubClass().run()
 }

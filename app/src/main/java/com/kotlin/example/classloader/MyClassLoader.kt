@@ -1,4 +1,4 @@
-package com.kotlin.example.base.classloader
+package com.kotlin.example.classloader
 
 import java.io.IOException
 
