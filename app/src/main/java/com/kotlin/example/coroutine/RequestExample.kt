@@ -60,7 +60,10 @@ interface Cancelable {
 }
 
 private class TestExecutor {
-    private val executor = Executors.newSingleThreadExecutor()
+    private val executor = Executors.newSingleThreadExecutor { runnable ->
+        // 设为守护线程，不影响JVM退出
+        Thread(runnable).also { it.isDaemon = true }
+    }
 
     fun submit(task: Runnable): Cancelable {
         val future = executor.submit { task.run() }

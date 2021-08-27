@@ -1,6 +1,6 @@
 package com.kotlin.example.coroutine
 
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
 import kotlin.coroutines.intrinsics.suspendCoroutineUninterceptedOrReturn
@@ -17,12 +17,10 @@ import kotlin.coroutines.suspendCoroutine
 class SafeContinuationExample : CoroutineExample() {
 
     override suspend fun run() {
-        coroutineScope.launch {
-            val user = getUserSuspend()
-            // val user = getUserSuspendImmediately()
-            // val user = getUserSuspendWithoutSafe()
-            log("user = $user")
-        }.join()
+        val user = getUserSuspend()
+        // val user = getUserSuspendImmediately()
+        // val user = getUserSuspendWithoutSafe()
+        log("user = $user")
     }
 
     /**
@@ -80,5 +78,9 @@ class SafeContinuationExample : CoroutineExample() {
             COROUTINE_SUSPENDED
         }
     }
+}
+
+fun main(): Unit = runBlocking {
+    SafeContinuationExample().run()
 }
 

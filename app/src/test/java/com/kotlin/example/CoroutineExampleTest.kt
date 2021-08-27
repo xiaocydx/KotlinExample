@@ -15,17 +15,17 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * 协程单元测试
+ * 协程测试例子
  *
  * @author xcc
  * @date 2021/5/15
  */
 class CoroutineExampleTest {
-    private val mainThreadSurrogate: ExecutorCoroutineDispatcher = newSingleThreadContext("main")
+    private val mainDispatcher: ExecutorCoroutineDispatcher = newSingleThreadContext("main")
 
     @Before
     fun init() {
-        Dispatchers.setMain(mainThreadSurrogate)
+        Dispatchers.setMain(mainDispatcher)
     }
 
     @Test
@@ -36,7 +36,7 @@ class CoroutineExampleTest {
     @After
     fun release() {
         Dispatchers.resetMain()
-        mainThreadSurrogate.close()
+        mainDispatcher.close()
         shutdown()
     }
 }
