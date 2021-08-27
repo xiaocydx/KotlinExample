@@ -29,7 +29,7 @@ class CoroutineExampleTest {
     }
 
     @Test
-    fun safeContinuationExample() = runBlocking {
+    fun safeContinuationExample() = runBlocking(Dispatchers.Main) {
         SafeContinuationExample().run()
     }
 

@@ -5,6 +5,7 @@ package com.kotlin.example
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kotlin.example.coroutine.SafeContinuationExample
 import com.kotlin.example.coroutine.shutdown
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Test
@@ -23,7 +24,7 @@ import org.junit.runner.RunWith
 class CoroutineExampleAndroidTest {
 
     @Test
-    fun safeContinuationExample() = runBlocking {
+    fun safeContinuationExample() = runBlocking(Dispatchers.Main) {
         SafeContinuationExample().run()
     }
 
