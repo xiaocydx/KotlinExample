@@ -4,8 +4,8 @@ package com.kotlin.example.coroutine.suspend
 
 import com.kotlin.example.coroutine.User
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.Continuation
-import kotlin.coroutines.intrinsics.suspendCoroutineUninterceptedOrReturn
 import kotlin.system.measureTimeMillis
 
 /**
@@ -15,13 +15,13 @@ import kotlin.system.measureTimeMillis
  * @date 2021/8/27
  */
 fun main(): Unit = runBlocking {
-    var user: User = suspendCoroutineUninterceptedOrReturn { uCont ->
-        javaReflectCallSuspend(uCont)
+    var user: User = suspendCancellableCoroutine { continuation ->
+        javaReflectCallSuspend(continuation)
     }
     println(user)
 
-    user = suspendCoroutineUninterceptedOrReturn { uCont ->
-        kotlinReflectCallSuspend(uCont)
+    user = suspendCancellableCoroutine { continuation ->
+        kotlinReflectCallSuspend(continuation)
     }
     println(user)
 }

@@ -4,8 +4,8 @@ package com.kotlin.example.coroutine.suspend
 
 import com.kotlin.example.coroutine.User
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.Continuation
-import kotlin.coroutines.intrinsics.suspendCoroutineUninterceptedOrReturn
 
 /**
  * 在普通函数中通过函数引用调用挂起函数
@@ -14,8 +14,8 @@ import kotlin.coroutines.intrinsics.suspendCoroutineUninterceptedOrReturn
  * @date 2021/8/27
  */
 fun main(): Unit = runBlocking {
-    val user: User = suspendCoroutineUninterceptedOrReturn { uCont ->
-        functionReferenceCallSuspend(uCont)
+    val user: User = suspendCancellableCoroutine { continuation ->
+        functionReferenceCallSuspend(continuation)
     }
     println(user)
 }

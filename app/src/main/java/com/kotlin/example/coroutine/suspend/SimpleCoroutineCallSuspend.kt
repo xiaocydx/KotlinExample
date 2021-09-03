@@ -4,14 +4,13 @@ package com.kotlin.example.coroutine.suspend
 
 import com.kotlin.example.coroutine.User
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.ContinuationInterceptor
 import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
-import kotlin.coroutines.intrinsics.suspendCoroutineUninterceptedOrReturn
-import kotlin.coroutines.startCoroutine
+import kotlin.coroutines.intrinsics.startCoroutineUninterceptedOrReturn
 
 /**
  * 在普通函数中通过标准库的简单协程调用挂起函数
@@ -20,32 +19,34 @@ import kotlin.coroutines.startCoroutine
  * @date 2021/8/27
  */
 fun main(): Unit = runBlocking {
-    var user: User = suspendCoroutineUninterceptedOrReturn { uCont ->
-        simpleCoroutineCallSuspend(uCont)
+    var user: User = suspendCancellableCoroutine { continuation ->
+        simpleCoroutineCallSuspend(continuation)
     }
     println(user)
 
     user = withContext(CustomDispatcher()) {
-        suspendCoroutineUninterceptedOrReturn { uCont ->
-            simpleCoroutineCallSuspend(uCont)
+        suspendCancellableCoroutine { continuation ->
+            simpleCoroutineCallSuspend(continuation)
         }
     }
     println(user)
 }
 
-private fun simpleCoroutineCallSuspend(continuation: Continuation<in User>): Any {
+private fun simpleCoroutineCallSuspend(continuation: Continuation<in User>): Any? {
     val apiService = ApiService()
     val start = System.currentTimeMillis()
-    suspend {
+    return suspend {
         println("start ${System.currentTimeMillis() - start}ms")
         apiService.getUser()
-    }.startCoroutine(continuation)
-    // import kotlin.coroutines.intrinsics.startCoroutineUninterceptedOrReturn
+    }.startCoroutineUninterceptedOrReturn(continuation)
+
+    // import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
+    // 启动协程会进行调度
     // suspend {
     //     println("start ${System.currentTimeMillis() - start}ms")
     //     apiService.getUser()
-    // }.startCoroutineUninterceptedOrReturn(continuation)
-    return COROUTINE_SUSPENDED
+    // }.startCoroutine(continuation)
+    // return COROUTINE_SUSPENDED
 }
 
 private class CustomDispatcher : ContinuationInterceptor {
