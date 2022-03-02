@@ -7,6 +7,7 @@ import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
+import kotlin.coroutines.intrinsics.intercepted
 
 /**
  * 函数执行/挂起时间的日志打印代理
@@ -57,7 +58,7 @@ private class LogcatCostHandler(
         val lastArg = safeArgs.lastOrNull()
         if (lastArg is Continuation<*> && method.returnType == Object::class.java) {
             // method为挂起函数，对continuation对象做一层类代理
-            safeArgs[safeArgs.lastIndex] = ContinuationWrapper(method, lastArg)
+            safeArgs[safeArgs.lastIndex] = ContinuationWrapper(method, lastArg.intercepted())
         }
         return safeArgs
     }
@@ -69,14 +70,14 @@ private class LogcatCostHandler(
 
     private inner class ContinuationWrapper<T>(
         private val method: Method,
-        private val continuation: Continuation<T>
-    ) : Continuation<T> by continuation {
+        private val delegate: Continuation<T>
+    ) : Continuation<T> by delegate {
         private val startTime = System.currentTimeMillis()
 
         override fun resumeWith(result: Result<T>) {
             // 挂起函数的endTime位置
             logcat(startTime, method)
-            continuation.resumeWith(result)
+            delegate.resumeWith(result)
         }
     }
 }
